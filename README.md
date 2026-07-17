@@ -1,2 +1,2 @@
 # RayTracer
-A ray tracer built using guidance form "Ray Tracing in One Weekend"
+A ray tracer built using guidance from "Ray Tracing in One Weekend"
