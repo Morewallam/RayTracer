@@ -15,9 +15,9 @@ main.exe <outputfile.cpp>
 
 You then be able to choose between some default scenes.
 Depending on how much sampling you choose and the size of the image. Rendering can take quite a while.
-[!](space.ppm)
+![Space](space.ppm)
 
-[!](marbles.ppm)
+![Marbles](marbles.ppm)
 
 You can also choose to make your own scene.
 
@@ -27,12 +27,10 @@ x y z radius material material-properties
 
 After making generating all the spheres you can choose camera parameters like location, direction, fov, depth of field, multi-sampling and the width of the output image.
 
+It will then render your image to the outputfile that you first specified.
+
+Try and to make something like this
+
+![Glass](glass.ppm)
 
 
-
-
-[!](space.ppm)
-
-[!](marbles.ppm)
-
-[!](glass.ppm)
