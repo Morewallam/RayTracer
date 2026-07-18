@@ -4,7 +4,8 @@
 #include "hittable.h"
 #include "material.h"
 
-class camera {
+class camera
+{
 public:
     double aspect_ratio = 1.0;  // Ratio of image width over height
     int image_width = 100;      // Rendered image width in pixel count
@@ -19,21 +20,25 @@ public:
     double defocus_angle = 0; // Variation angle of rays through each pixel
     double focus_dist = 10;   // Distance from camera lookfrom point to plane of perfect focus
 
-    void render(const hittable &world) {
+    void render(const hittable &world, std::ostream &output_stream)
+    {
         initialize();
 
-        std::cout << "P3\n"
-                  << image_width << ' ' << image_height << "\n255\n";
+        output_stream << "P3\n"
+                      << image_width << ' ' << image_height << "\n255\n";
 
-        for (int j = 0; j < image_height; j++) {
+        for (int j = 0; j < image_height; j++)
+        {
             std::clog << "\rScanlines remaining: " << (image_height - j) << ' ' << std::flush;
-            for (int i = 0; i < image_width; i++) {
+            for (int i = 0; i < image_width; i++)
+            {
                 color pixel_color(0, 0, 0);
-                for (int sample = 0; sample < samples_per_pixel; sample++) {
+                for (int sample = 0; sample < samples_per_pixel; sample++)
+                {
                     ray r = get_ray(i, j);
                     pixel_color += ray_color(r, max_depth, world);
                 }
-                write_color(std::cout, pixel_samples_scale * pixel_color);
+                write_color(output_stream, pixel_samples_scale * pixel_color);
             }
         }
 
@@ -51,7 +56,8 @@ private:
     vec3 defocus_disk_u;        // Defocus disk horizontal radius
     vec3 defocus_disk_v;        // Defocus disk vertical radius
 
-    void initialize() {
+    void initialize()
+    {
         image_height = int(image_width / aspect_ratio);
         image_height = (image_height < 1) ? 1 : image_height;
 
@@ -88,7 +94,8 @@ private:
         defocus_disk_v = v * defocus_radius;
     }
 
-    ray get_ray(int i, int j) const {
+    ray get_ray(int i, int j) const
+    {
         // Construct a camera ray originating from the defocus disk and directed at a randomly
         // sampled point around the pixel location i, j.
 
@@ -101,24 +108,28 @@ private:
         return ray(ray_origin, ray_direction);
     }
 
-    vec3 sample_square() const {
+    vec3 sample_square() const
+    {
         // Returns the vector to a random point in the [-.5,-.5]-[+.5,+.5] unit square.
         return vec3(random_double() - 0.5, random_double() - 0.5, 0);
     }
 
-    point3 defocus_disk_sample() const {
+    point3 defocus_disk_sample() const
+    {
         // Returns a random point in the camera defocus disk.
         auto p = random_in_unit_disk();
         return center + (p[0] * defocus_disk_u) + (p[1] * defocus_disk_v);
     }
 
-    color ray_color(const ray &r, int depth, const hittable &world) const {
+    color ray_color(const ray &r, int depth, const hittable &world) const
+    {
         if (depth <= 0)
             return color(0, 0, 0);
 
         hit_record rec;
 
-        if (world.hit(r, interval(0.001, infinity), rec)) {
+        if (world.hit(r, interval(0.001, infinity), rec))
+        {
             ray scattered;
             color attenuation;
             if (rec.mat->scatter(r, rec, attenuation, scattered))
