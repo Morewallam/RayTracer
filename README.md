@@ -11,7 +11,7 @@ The camera features variable fov, depth of field effect and multisample anti-ali
 
 To run the ray tracer run
 
-`main.exe <output-file.cpp>`
+`./raytracer.exe <output-file.cpp>`
 
 Then choose between rendering a **_default scene_** or **_creating your own_**.
 
